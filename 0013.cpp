@@ -12,7 +12,7 @@ int main () {
     std::ifstream input("res/0013.txt");
     double num;
     double solution = 0;
-    while (input >> num) {
+    while (input >> num) { // read lines
         solution += num;
     }
     std::cout.precision(11);

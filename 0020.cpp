@@ -1,37 +1,69 @@
 // factorial digit sum
 // 10 -> 3628800 : 27
-// 93326215443944175354307254139643190247129328132295862491935879110669343325734178368282822618707234467717279847537548956702435362278960753539491860335688679424
-// != 734,
-#include <cmath>
+// != 734 overflow
+// == 648 (vector)
+
 #include <iostream>
-#include <string>
+#include <vector>
 
-double factorial(double num);
+std::vector<int> vfri(int i);
+std::vector<int> vbys (std::vector<int> vect, int s);
+void printv(std::vector<int> vect);
 
-int main () {
-    double num = 25;
-    double f = factorial(num);
-    double result = 0;
-
-    std::string s = std::to_string(f);
-
-    std::cout << f << '\n';
-    std::cout << s << '\n';
-
-    for (auto x: s) {
-        if (x == '.')
-            break;
-        std::cout << x << ", ";
-        result += (int) x - '0';
+int main() {
+    auto n = vfri(1);
+    for (int i=1; i <= 100; ++i) {
+        n = vbys(n ,i);
     }
-    std::cout << '\n' << result;
+
+    int solution = 0;
+    for (auto i: n) {
+        solution += i;
+    }
+    std::cout << solution;
 }
 
-double factorial(double num) {
-    double result = 1;
-    while (num) {
-        result *= num;
-        --num;
+std::vector<int> vfri(int i) {
+    std::vector<int> result;
+    while (i) {
+        int digit = i % 10;
+        i /= 10;
+        result.push_back(digit);
+    }
+    result.push_back(0);
+    printv(result);
+
+    return result;
+}
+
+std::vector<int> vbys (std::vector<int> vect, int s) {
+    std::vector<int> result;
+    int carry = 0;
+    for (auto digit: vect) {
+        int num = digit * s + carry;
+        carry = 0;
+        if (num >= 10) {
+            int c = 1;
+            while (num >= 10) {
+                carry += (num / 10) * c;
+                num %= 10;
+            }
+        }
+        result.push_back(num);
+        // num is < 10, carry has value
+    }
+    if (carry) {
+        while (carry >= 10) {
+            result.push_back(carry % 10);
+            carry /= 10;
+        }
+        result.push_back(carry);
     }
     return result;
+}
+void printv(std::vector<int> v) {
+    for (auto i: v) {
+        std::cout << i << ", ";
+    }
+    std::cout << '\n';
 }
