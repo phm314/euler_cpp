@@ -7,11 +7,9 @@
 #include <string>
 
 int main() {
-    std::ifstream input("C:/Users/te/coding/cpp/peuler/0059.txt");
-    //vsc & relative paths bad
+    std::ifstream input("res/0059.txt");
     std::vector<int> nums;
     int num;
-    char ch;
 
     if (input) {
         std::cout << "opened file";
@@ -28,7 +26,6 @@ int main() {
     char l1='e', l2='x', l3='p';
     char cont;
     while (cont != 'y') {
-
         if (cont == '1') {
             ++l1;
         } else if (cont == '2') {
@@ -47,8 +44,7 @@ int main() {
             l3='a';
         }
         std::cout << l1 << l2 << l3 << '\n';
-        
-        
+               
         int ind = 0;
         int bit;
         for (auto x: nums) {
